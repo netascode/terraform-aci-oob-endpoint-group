@@ -14,35 +14,40 @@ terraform {
 module "main" {
   source = "../.."
 
-  name        = "ABC"
-  alias       = "ALIAS"
-  description = "DESCR"
+  name = "OOB1"
+  oob_contracts = {
+    providers = ["OOB-CON1"]
+  }
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "mgmtOoB" {
+  dn = "uni/tn-mgmt/mgmtp-default/oob-${module.main.name}"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "mgmtOoB" {
+  component = "mgmtOoB"
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
+    got         = data.aci_rest.mgmtOoB.content.name
+    want        = module.main.name
   }
+}
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = "ALIAS"
-  }
+data "aci_rest" "mgmtRsOoBProv" {
+  dn = "${data.aci_rest.mgmtOoB.id}/rsooBProv-OOB-CON1"
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = "DESCR"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "mgmtRsOoBProv" {
+  component = "mgmtRsOoBProv"
+
+  equal "tnVzOOBBrCPName" {
+    description = "tnVzOOBBrCPName"
+    got         = data.aci_rest.mgmtRsOoBProv.content.tnVzOOBBrCPName
+    want        = "OOB-CON1"
   }
 }

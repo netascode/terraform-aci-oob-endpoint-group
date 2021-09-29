@@ -13,12 +13,11 @@ Note that this example will create resources. Resources can be destroyed with `t
 
 ```hcl
 module "aci_oob_endpoint_group" {
-  source = "netascode/oob-endpoint-group/aci"
+  source  = "netascode/oob-endpoint-group/aci"
+  version = ">= 0.0.2"
 
-  name = "OOB1"
-  oob_contracts = {
-    providers = ["OOB-CON1"]
-  }
+  name                   = "OOB1"
+  oob_contract_providers = ["OOB-CON1"]
 }
 
 ```

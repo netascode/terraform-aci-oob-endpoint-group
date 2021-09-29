@@ -12,12 +12,11 @@ Location in GUI:
 
 ```hcl
 module "aci_oob_endpoint_group" {
-  source = "netascode/oob-endpoint-group/aci"
+  source  = "netascode/oob-endpoint-group/aci"
+  version = ">= 0.0.2"
 
-  name = "OOB1"
-  oob_contracts = {
-    providers = ["OOB-CON1"]
-  }
+  name                   = "OOB1"
+  oob_contract_providers = ["OOB-CON1"]
 }
 
 ```
@@ -40,7 +39,7 @@ module "aci_oob_endpoint_group" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | OOB endpoint group name. | `string` | n/a | yes |
-| <a name="input_oob_contracts"></a> [oob\_contracts](#input\_oob\_contracts) | List of OOB contracts. | <pre>object({<br>    providers = optional(list(string))<br>  })</pre> | `{}` | no |
+| <a name="input_oob_contract_providers"></a> [oob\_contract\_providers](#input\_oob\_contract\_providers) | List of OOB contract providers. | `list(string)` | `[]` | no |
 
 ## Outputs
 

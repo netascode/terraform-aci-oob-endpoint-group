@@ -14,10 +14,8 @@ terraform {
 module "main" {
   source = "../.."
 
-  name = "OOB1"
-  oob_contracts = {
-    providers = ["OOB-CON1"]
-  }
+  name                   = "OOB1"
+  oob_contract_providers = ["OOB-CON1"]
 }
 
 data "aci_rest" "mgmtOoB" {

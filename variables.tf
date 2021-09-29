@@ -8,17 +8,15 @@ variable "name" {
   }
 }
 
-variable "oob_contracts" {
-  description = "List of OOB contracts."
-  type = object({
-    providers = optional(list(string))
-  })
-  default = {}
+variable "oob_contract_providers" {
+  description = "List of OOB contract providers."
+  type        = list(string)
+  default     = []
 
   validation {
     condition = alltrue([
-      for prov in coalesce(var.oob_contracts.providers, []) : can(regex("^[a-zA-Z0-9_.-]{0,64}$", prov))
+      for c in var.oob_contract_providers : can(regex("^[a-zA-Z0-9_.-]{0,64}$", c))
     ])
-    error_message = "`providers`: Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
+    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
   }
 }

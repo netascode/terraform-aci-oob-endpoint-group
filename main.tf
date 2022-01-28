@@ -1,4 +1,4 @@
-resource "aci_rest" "mgmtOoB" {
+resource "aci_rest_managed" "mgmtOoB" {
   dn         = "uni/tn-mgmt/mgmtp-default/oob-${var.name}"
   class_name = "mgmtOoB"
   content = {
@@ -6,9 +6,9 @@ resource "aci_rest" "mgmtOoB" {
   }
 }
 
-resource "aci_rest" "mgmtRsOoBProv" {
+resource "aci_rest_managed" "mgmtRsOoBProv" {
   for_each   = toset(var.oob_contract_providers)
-  dn         = "${aci_rest.mgmtOoB.dn}/rsooBProv-${each.value}"
+  dn         = "${aci_rest_managed.mgmtOoB.dn}/rsooBProv-${each.value}"
   class_name = "mgmtRsOoBProv"
   content = {
     tnVzOOBBrCPName = each.value

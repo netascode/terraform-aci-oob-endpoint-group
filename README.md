@@ -39,6 +39,7 @@ module "aci_oob_endpoint_group" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | OOB endpoint group name. | `string` | n/a | yes |
 | <a name="input_oob_contract_providers"></a> [oob\_contract\_providers](#input\_oob\_contract\_providers) | List of OOB contract providers. | `list(string)` | `[]` | no |
+| <a name="input_static_routes"></a> [static\_routes](#input\_static\_routes) | List of OOB Static routes | `list(string)` | `[]` | no |
 
 ## Outputs
 
@@ -53,4 +54,5 @@ module "aci_oob_endpoint_group" {
 |------|------|
 | [aci_rest_managed.mgmtOoB](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 | [aci_rest_managed.mgmtRsOoBProv](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.mgmtStaticRoute](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->

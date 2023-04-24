@@ -14,3 +14,9 @@ resource "aci_rest_managed" "mgmtRsOoBProv" {
     tnVzOOBBrCPName = each.value
   }
 }
+
+resource "aci_rest_managed" "mgmtStaticRoute" {
+  for_each = toset(var.static_routes)
+  dn       = "${aci_rest_managed.mgmtOoB.dn}/staticroute-[${each.value}]"
+  prefix   = each.value
+}

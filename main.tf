@@ -16,7 +16,10 @@ resource "aci_rest_managed" "mgmtRsOoBProv" {
 }
 
 resource "aci_rest_managed" "mgmtStaticRoute" {
-  for_each = toset(var.static_routes)
-  dn       = "${aci_rest_managed.mgmtOoB.dn}/staticroute-[${each.value}]"
-  prefix   = each.value
+  for_each   = toset(var.static_routes)
+  dn         = "${aci_rest_managed.mgmtOoB.dn}/staticroute-[${each.value}]"
+  class_name = "mgmtStaticRoute"
+  content = {
+    prefix = each.value
+  }
 }
